@@ -48,21 +48,18 @@ namespace SuperHeroAPI.Controllers
         [HttpPut]
         public async Task<ActionResult<SuperHero>> DeleteHero(string heroName)
         {
-           var dbHero = await _context.SuperHeroes.FindAsync(heroName);
-           if(dbHero == null)
-           {
-               return NotFound("Hero not found.");
-           }
+            var dbHero = await _context.SuperHeroes.FindAsync(heroName);
+            if (dbHero == null)
+            {
+                return NotFound("Hero not found.");
+            }
 
             _context.SuperHeroes.Remove(dbHero);
 
-           await _context.SaveChangesAsync();
-           return Ok(dbHero);
+            await _context.SaveChangesAsync();
+            return Ok(dbHero);
 
         }
-
-        [HttpDelete]
-
 
     }
 
