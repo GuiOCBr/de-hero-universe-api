@@ -46,6 +46,20 @@ namespace SuperHeroAPI.Controllers
         }
 
         [HttpPut]
+        public async Task<ActionResult<SuperHero>> UpdateHero(SuperHero updateHero)
+        {
+            var dbhero = await _context.SuperHeroes.FindAsync(updateHero.Id);
+            if (dbhero is null)
+                return NotFound("Hero not found");
+
+            dbhero.HeroName = updateHero.HeroName;
+            dbhero.RealName = updateHero.RealName;
+            dbhero.MainPower = updateHero.MainPower;
+
+            return Ok(await _context.SuperHeroes.ToListAsync());
+        }
+
+        [HttpPut]
         public async Task<ActionResult<SuperHero>> DeleteHero(string heroName)
         {
             var dbHero = await _context.SuperHeroes.FindAsync(heroName);
